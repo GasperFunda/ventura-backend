@@ -1,0 +1,30 @@
+var express = require('express');
+var router = express.Router();
+var activityController = require('../controllers/activityController.js');
+
+/*
+ * GET
+ */
+router.get('/', activityController.list);
+
+/*
+ * GET
+ */
+router.get('/:id', activityController.show);
+
+/*
+ * POST
+ */
+router.post('/', activityController.create);
+
+/*
+ * PUT
+ */
+router.put('/:id', activityController.update);
+
+/*
+ * DELETE
+ */
+router.delete('/:id', activityController.remove);
+
+module.exports = router;
