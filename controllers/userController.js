@@ -23,12 +23,10 @@ module.exports = {
   },
   register: function (req, res) {
     var user = new UserModel({
-      username: req.body.username,
       email: req.body.email,
       password: req.body.password,
       first_name: req.body.first_name,
       last_name: req.body.last_name,
-      date_of_birth: req.body.date_of_birth,
     });
 
     user.save(function (err, user) {
@@ -44,11 +42,11 @@ module.exports = {
   },
   login: function (req, res, next) {
     UserModel.authenticate(
-      req.body.username,
+      req.body.email,
       req.body.password,
       function (error, user) {
         if (error || !user) {
-          var err = new Error("Wrong username or password");
+          var err = new Error("Wrong email or password");
           err.status = 401;
           return next(err);
         } else {
@@ -89,12 +87,10 @@ module.exports = {
    */
   create: function (req, res) {
     var user = new UserModel({
-      username: req.body.username,
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       email: req.body.email,
       password: req.body.password,
-      date_of_birth: req.body.date_of_birth,
     });
 
     user.save(function (err, user) {
@@ -128,17 +124,12 @@ module.exports = {
           message: "No such user",
         });
       }
-
-      user.username = req.body.username ? req.body.username : user.username;
       user.first_name = req.body.first_name
         ? req.body.first_name
         : user.first_name;
       user.last_name = req.body.last_name ? req.body.last_name : user.last_name;
       user.email = req.body.email ? req.body.email : user.email;
       user.password = req.body.password ? req.body.password : user.password;
-      user.date_of_birth = req.body.date_of_birth
-        ? req.body.date_of_birth
-        : user.date_of_birth;
 
       user.save(function (err, user) {
         if (err) {
