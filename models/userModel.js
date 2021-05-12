@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-
+var bcrypt = require("bcrypt");
 var userSchema = new Schema({
   username: String,
   first_name: String,
@@ -10,8 +10,8 @@ var userSchema = new Schema({
   date_of_birth: Date,
 });
 
-userSchema.statics.authenticate = function (username, password, callback) {
-  User.findOne({ username: username }).exec(function (err, user) {
+userSchema.statics.authenticate = function (email, password, callback) {
+  User.findOne({ email: email }).exec(function (err, user) {
     if (err) {
       return callback(err);
     } else if (!user) {
