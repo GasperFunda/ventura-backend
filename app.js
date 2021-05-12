@@ -3,16 +3,17 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var session = require("express-session");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/userRoutes");
 var activitiesRouter = require("./routes/activityRoutes");
-
+var cors = require("cors");
 var app = express();
 
 var mongoDB =
   "mongodb+srv://dbUser:dbUser@ventura.2ym7e.mongodb.net/Ventura?retryWrites=true&w=majority";
-mongoose.connect(mongoDB);
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error"));
