@@ -71,7 +71,9 @@ module.exports = {
   create: function (req, res) {
     var activity = new ActivityModel({
       title: req.body.title,
-      location: req.body.location,
+      longtitude: req.body.longtitude,
+      latitude: req.body.latitude,
+      elevation: req.body.elevation,
       speed: req.body.speed,
       direction: req.body.direction,
       distance: req.body.distance,

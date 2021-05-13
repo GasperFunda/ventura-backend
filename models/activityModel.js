@@ -3,8 +3,10 @@ var Schema = mongoose.Schema;
 
 var activitySchema = new Schema({
   title: String,
-  location: { latitude: Number, longtitude: Number },
+  latitude: Array,
+  longtitude: Array,
   speed: Array,
+  elevation: Array,
   distance: Number,
   type: String,
   start_time: Date,
