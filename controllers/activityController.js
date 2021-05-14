@@ -56,6 +56,7 @@ module.exports = {
       }
 
       if (!activities) {
+        console.log("asd");
         return res.status(404).json({
           message: "This user has no activities",
         });
@@ -79,7 +80,7 @@ module.exports = {
       distance: req.body.distance,
       type: req.body.type,
       start_time: req.body.start_time,
-      end_time: req.body.end_time,
+      elapsed_time: req.body.elapsed_time,
       user: req.body.user,
     });
 

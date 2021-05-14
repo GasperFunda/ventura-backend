@@ -10,7 +10,7 @@ var activitySchema = new Schema({
   distance: Number,
   type: String,
   start_time: Date,
-  end_time: Date,
+  elapsed_time: Number,
   user: {
     type: Schema.Types.ObjectId,
     ref: "user",
