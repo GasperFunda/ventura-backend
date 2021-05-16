@@ -12,7 +12,7 @@ router.get("/", activityController.list);
  */
 router.get("/:id", activityController.show);
 router.get("/user/:id", activityController.getUserActivities);
-
+router.get("/profile/:id", activityController.getProfile);
 /*
  * POST
  */

@@ -63,7 +63,30 @@ module.exports = {
       }
 
       return res.json(activities);
-    });
+    }).sort({ start_time: -1 });
+  },
+
+  getProfile: function (req, res) {
+    var id = req.params.id;
+    ActivityModel.find({ user: id }, function (err, activities) {
+      if (err) {
+        return res.status(500).json({
+          message: "Error when getting activities.",
+          error: err,
+        });
+      }
+
+      if (!activities) {
+        console.log("asd");
+        return res.status(404).json({
+          message: "This user has no activities",
+        });
+      }
+
+      return res.json(activities);
+    })
+      .sort({ start_time: -1 })
+      .populate("user");
   },
 
   /**
