@@ -1,6 +1,9 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var bcrypt = require("bcrypt");
+var jwt = require("jsonwebtoken");
+var dotenv = require("dotenv");
+
 var userSchema = new Schema({
   username: String,
   first_name: String,
@@ -39,6 +42,11 @@ userSchema.pre("save", function (next) {
     next();
   });
 });
+
+userSchema.methods.generateAuthToken = function () {
+  dotenv.config();
+  return jwt.sign({ _id: this._id }, process.env.JWT_KEY);
+};
 
 var User = mongoose.model("user", userSchema);
 module.exports = User;

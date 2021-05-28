@@ -51,7 +51,8 @@ module.exports = {
           console.log(error);
           return next(err);
         } else {
-          //return res.redirect("profile");
+          const token = user.generateAuthToken();
+          user = { ...user, jwt: token };
           return res.status(201).json(user);
         }
       }

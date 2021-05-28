@@ -3,15 +3,14 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-
+var dotenv = require("dotenv");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/userRoutes");
 var activitiesRouter = require("./routes/activityRoutes");
 var cors = require("cors");
 var app = express();
-
-var mongoDB =
-  "mongodb+srv://dbUser:dbUser@ventura.2ym7e.mongodb.net/Ventura?retryWrites=true&w=majority";
+dotenv.config();
+var mongoDB = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@ventura.2ym7e.mongodb.net/Ventura?retryWrites=true&w=majority`;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
