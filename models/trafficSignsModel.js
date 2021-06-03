@@ -10,6 +10,7 @@ var trafficSignsSchema = new Schema({
     ref: "user",
   },
   path: String,
+  image: String,
 });
 
 module.exports = mongoose.model("trafficSigns", trafficSignsSchema);

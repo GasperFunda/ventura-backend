@@ -56,8 +56,18 @@ module.exports = {
       longtitude: req.body.longtitude,
       user: req.body.user,
       path: req.body.path,
+      image: req.body.image,
     });
-
+    var data = req.body.image.replace("/^data:image/png;base64,/", "");
+    var filename = req.body.path;
+    require("fs").writeFile(
+      "public/images/" + filename,
+      data,
+      "base64",
+      function (err) {
+        console.log(err);
+      }
+    );
     trafficSigns.save(function (err, trafficSigns) {
       if (err) {
         return res.status(500).json({
