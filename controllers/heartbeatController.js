@@ -79,6 +79,7 @@ module.exports = {
 
     heartbeat.save(function (err, heartbeat) {
       if (err) {
+        console.log(err);
         return res.status(500).json({
           message: "Error when creating heartbeat",
           error: err,
