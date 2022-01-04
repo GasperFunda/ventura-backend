@@ -37,4 +37,4 @@ while True:
         newvalues = {"$set": {"type":type}}
 
         mytable.update_one(myquery,newvalues)
-    time.sleep(10.0)
+    time.sleep(20.0)
