@@ -23,6 +23,10 @@ while True:
     for x in results:
         json_str = dumps(x)
         res = loads(json_str)
+        myquery = {"_id": res["_id"]}
+        newvalues = {"$set": {"type":"in progress"}}
+        mytable.update_one(myquery,newvalues)
+        
         imgdata = np.frombuffer(base64.b64decode(res["image"]),np.uint8)
         img = cv2.imdecode(imgdata,cv2.IMREAD_COLOR)
 
