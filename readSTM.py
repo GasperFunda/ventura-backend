@@ -17,7 +17,7 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 connectionString = "mongodb+srv://"+ DB_USERNAME +":"+ DB_PASSWORD +"@ventura.2ym7e.mongodb.net/Ventura?retryWrites=true&w=majority"
 myclient = pymongo.MongoClient(connectionString)
 mydb = myclient["Ventura"]
-mytable = mydb["compass"]
+mytable = mydb["compasses"]
 
 def data_read(ser):
     counter = 0

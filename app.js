@@ -9,6 +9,7 @@ var usersRouter = require("./routes/userRoutes");
 var activitiesRouter = require("./routes/activityRoutes");
 var trafficSignsRoutes = require("./routes/trafficSignsRoutes");
 var heartbeatRoutes = require("./routes/heartbeatRoutes");
+var compassRoutes = require("./routes/compassRoutes");
 const createError = require("http-errors");
 var cors = require("cors");
 var app = express();
@@ -32,6 +33,7 @@ app.use("/users", usersRouter);
 app.use("/activities", activitiesRouter);
 app.use("/trafficSigns", trafficSignsRoutes);
 app.use("/heartbeat", heartbeatRoutes);
+app.use("/compass", compassRoutes);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
