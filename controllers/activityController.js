@@ -76,7 +76,7 @@ module.exports = {
         });
       }
 
-      if (!activities) {
+      if (!activities.length) {
         console.log("asd");
         return res.status(404).json({
           message: "This user has no activities",
