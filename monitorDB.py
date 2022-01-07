@@ -7,6 +7,10 @@ from bson.json_util import loads,dumps
 import numpy as np
 import cv2
 import base64
+
+import sys
+import subprocess
+
 while True:
     load_dotenv()
     DB_USERNAME = os.getenv("DB_USERNAME")

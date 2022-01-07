@@ -30,7 +30,7 @@ def data_read(ser):
         print(data)
         mytable.insert_one(data)
         counter += 1
-        time.sleep(0.25)
+        time.sleep(0.125)
 
 
 def on_exit_handler():
