@@ -1,10 +1,11 @@
 var ActivityModel = require("../models/activityModel.js");
 
-/**
- * activityController.js
- *
- * @description :: Server-side logic for managing activitys.
- */
+function compress(data) {
+  return data;
+}
+
+function decompress(data) {}
+
 module.exports = {
   /**
    * activityController.list()
@@ -87,6 +88,12 @@ module.exports = {
     })
       .sort({ start_time: -1 })
       .populate("user");
+  },
+  compress: function (req, res) {
+    console.log(req.body);
+    const str = req.body.data;
+    const result = compress(str);
+    console.log(result);
   },
 
   /**

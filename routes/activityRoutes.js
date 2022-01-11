@@ -18,6 +18,7 @@ router.get("/profile/:id", auth, activityController.getProfile);
  * POST
  */
 router.post("/", auth, activityController.create);
+router.post("/compress", activityController.compress);
 
 /*
  * PUT
