@@ -1,10 +1,5 @@
-var ActivityModel = require("../models/activityModel.js");
-
-function compress(data) {
-  return data;
-}
-
-function decompress(data) {}
+const ActivityModel = require("../models/activityModel.js");
+const compression = require("../util/compression.js");
 
 module.exports = {
   /**
@@ -92,8 +87,10 @@ module.exports = {
   compress: function (req, res) {
     console.log(req.body);
     const str = req.body.data;
-    const result = compress(str);
-    console.log(result);
+    const compressed = compression.compress(str);
+    console.log("compression: " + compressed);
+    const decompressed = compression.decompress(compressed);
+    console.log("decompressed: " + decompressed);
   },
 
   /**
