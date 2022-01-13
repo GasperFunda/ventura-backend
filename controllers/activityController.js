@@ -1,20 +1,28 @@
 const ActivityModel = require("../models/activityModel.js");
-const compression = require("../util/compression.js");
-
+const { decompress, compress } = require("../util/compression.js");
+const { checkJson } = require("../util/jsonValidation.js");
 module.exports = {
   /**
    * activityController.list()
    */
   list: function (req, res) {
-    ActivityModel.find(function (err, activitys) {
+    ActivityModel.find(function (err, activities) {
       if (err) {
         return res.status(500).json({
           message: "Error when getting activity.",
           error: err,
         });
       }
-
-      return res.json(activitys);
+      activities.forEach((activity) => {
+        const isValid = checkJson(activity.latitude[0]);
+        if (!isValid) {
+          activity.latitude[0] = decompress(activity.latitude[0]);
+          activity.longtitude[0] = decompress(activity.longtitude[0]);
+          activity.speed[0] = decompress(activity.speed[0]);
+          activity.elevation[0] = decompress(activity.elevation[0]);
+        }
+      });
+      return res.json(activities);
     });
   },
 
@@ -31,11 +39,18 @@ module.exports = {
           error: err,
         });
       }
-
+      //console.log(activity);
       if (!activity) {
         return res.status(404).json({
           message: "No such activity",
         });
+      }
+      const isValid = checkJson(activity.latitude[0]);
+      if (!isValid) {
+        activity.latitude[0] = decompress(activity.latitude[0]);
+        activity.longtitude[0] = decompress(activity.longtitude[0]);
+        activity.speed[0] = decompress(activity.speed[0]);
+        activity.elevation[0] = decompress(activity.elevation[0]);
       }
 
       return res.json(activity);
@@ -57,7 +72,15 @@ module.exports = {
           message: "This user has no activities",
         });
       }
-
+      activities.forEach((activity) => {
+        const isValid = checkJson(activity.latitude[0]);
+        if (!isValid) {
+          activity.latitude[0] = decompress(activity.latitude[0]);
+          activity.longtitude[0] = decompress(activity.longtitude[0]);
+          activity.speed[0] = decompress(activity.speed[0]);
+          activity.elevation[0] = decompress(activity.elevation[0]);
+        }
+      });
       return res.json(activities);
     }).sort({ start_time: -1 });
   },
@@ -78,7 +101,15 @@ module.exports = {
           message: "This user has no activities",
         });
       }
-
+      activities.forEach((activity) => {
+        const isValid = checkJson(activity.latitude[0]);
+        if (!isValid) {
+          activity.latitude[0] = decompress(activity.latitude[0]);
+          activity.longtitude[0] = decompress(activity.longtitude[0]);
+          activity.speed[0] = decompress(activity.speed[0]);
+          activity.elevation[0] = decompress(activity.elevation[0]);
+        }
+      });
       return res.json(activities);
     })
       .sort({ start_time: -1 })
@@ -87,9 +118,9 @@ module.exports = {
   compress: function (req, res) {
     console.log(req.body);
     const str = req.body.data;
-    const compressed = compression.compress(str);
+    const compressed = compress(str);
     console.log("compression: " + compressed);
-    const decompressed = compression.decompress(compressed);
+    const decompressed = decompress(compressed);
     console.log("decompressed: " + decompressed);
   },
 
@@ -99,10 +130,10 @@ module.exports = {
   create: function (req, res) {
     var activity = new ActivityModel({
       title: req.body.title,
-      longtitude: req.body.longtitude,
-      latitude: req.body.latitude,
-      elevation: req.body.elevation,
-      speed: req.body.speed,
+      longtitude: compress(req.body.longtitude),
+      latitude: compress(req.body.latitude),
+      elevation: compress(req.body.elevation),
+      speed: compress(req.body.speed),
       direction: req.body.direction,
       distance: req.body.distance,
       type: req.body.type,
