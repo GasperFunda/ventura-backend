@@ -122,6 +122,11 @@ module.exports = {
     console.log("compression: " + compressed);
     const decompressed = decompress(compressed);
     console.log("decompressed: " + decompressed);
+    const object = {
+      compressed,
+      decompressed,
+    };
+    return res.json(object);
   },
 
   /**
